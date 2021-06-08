@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1044987250977",
+    "firebase_url": "https://visitnow-guideme-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "visitnow-guideme",
+    "storage_bucket": "visitnow-guideme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044987250977:android:8fdcf0045d015213fcd660",
+        "android_client_info": {
+          "package_name": "com.android.visitnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044987250977-356j0mf99aqrpafg1vtn1k2b3anagvfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxwUQtwcmpumqK_PsoLnzLjQ2x2jmWshU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044987250977-356j0mf99aqrpafg1vtn1k2b3anagvfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
