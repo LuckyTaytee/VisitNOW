@@ -11,6 +11,11 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
+        android:id="@+id/destinationListFragment"
+        android:name="com.android.visitnow.DestinationListFragment"
+        android:label="fragment_destination_list"
+        tools:layout="@layout/fragment_destination_list" />
+    <fragment
         android:id="@+id/searchFragment"
         android:name="com.android.visitnow.SearchFragment"
         android:label="fragment_search"
