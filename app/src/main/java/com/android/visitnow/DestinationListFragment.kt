@@ -1,10 +1,18 @@
 package com.android.visitnow
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.visitnow.DataModel.DatabaseModel
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_destination_list.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.reflect.typeOf
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,9 @@ class DestinationListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var database: FirebaseDatabase
+    private lateinit var reference: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,8 +44,69 @@ class DestinationListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_destination_list, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_destination_list, container, false)
+
+        database = FirebaseDatabase.getInstance()
+
+        val city = arrayOf("Bali", "Bandung", "Jakarta", "Jogja")
+        val arrayAdapter = ArrayAdapter(this.requireActivity(), android.R.layout.simple_spinner_item, city)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val spinner = root.findViewById<Spinner>(R.id.destlist_spinner)
+
+        spinner.adapter = arrayAdapter
+
+        spinner.onItemSelectedListener = object :
+
+            AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val selected = city[p2].toLowerCase()
+                    reference = database.getReference("area/$selected")
+                    getData()
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    reference = database.getReference("area/jogja")
+                    getData()
+                }
+
+            }
+
+        /*val adapter = ArrayAdapter.createFromResource(
+            this.requireActivity(),
+            R.array.city_array,
+            android.R.layout.simple_spinner_item
+        )
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter*/
+
+        return root
+    }
+
+    private fun getData() {
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var list = ArrayList<DatabaseModel>()
+                for (data in snapshot.children)
+                {
+                    val model = data.getValue(DatabaseModel::class.java)
+                    list.add(model as DatabaseModel)
+                }
+                if (list.size > 0)
+                {
+                    val adapter = DestinationAdapter(list)
+                    destlist_recycler_view.adapter = adapter
+                    destlist_recycler_view.layoutManager = LinearLayoutManager(context)
+                    destlist_recycler_view.setHasFixedSize(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Cancel", error.toString())
+            }
+        })
     }
 
     companion object {

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DestinationListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Spinner
+        android:id="@+id/destlist_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/destlist_recycler_view"
+        android:padding="4dp"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Destination" />
+        android:layout_below="@+id/destlist_spinner"
+        tools:listitem="@layout/destination_item" />
 
-</FrameLayout>
+
+</RelativeLayout>

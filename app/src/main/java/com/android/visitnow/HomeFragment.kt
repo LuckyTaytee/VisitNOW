@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.visitnow.DataModel.DatabaseModel
 import com.google.firebase.database.*
@@ -62,16 +63,6 @@ class HomeFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("area/jogja")
         getData()
-
-        val recyclerView = root.home_recycler_view
-
-        /*
-        val destinationList = generateDummyList(50)
-
-        recyclerView.adapter = DestinationAdapter(destinationList)
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.setHasFixedSize(true)
-         */
 
         return root
     }
